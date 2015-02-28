@@ -4,58 +4,36 @@
 ThirteenGame game;
 
 ThirteenGame::ThirteenGame()
-    : _scene(NULL), _wireframe(false)
 {
 }
 
 void ThirteenGame::initialize()
 {
-    _mainMenuForm = Form::create("res/forms/mainMenu.form");
-    
-    Button* playGameButton = static_cast<Button*>(_mainMenuForm->getControl("playGameButton"));
-    playGameButton->addListener(this, Control::Listener::PRESS | Control::Listener::RELEASE);
-    // Load game scene from file
-    _scene = Scene::load("res/demo.scene");
-
-    // Get the box model and initialize its material parameter values and bindings
-    Node* boxNode = _scene->findNode("box");
-    Model* boxModel = dynamic_cast<Model*>(boxNode->getDrawable());
-    Material* boxMaterial = boxModel->getMaterial();
-
-    // Set the aspect ratio for the scene's camera to match the current resolution
-    _scene->getActiveCamera()->setAspectRatio(getAspectRatio());
+    // Create your sprite batch from a PNG image
+    _batch = SpriteBatch::create("res/img/cards.png");
 }
 
 void ThirteenGame::finalize()
 {
-    SAFE_RELEASE(_scene);
+    SAFE_DELETE(_batch);
 }
 
 void ThirteenGame::update(float elapsedTime)
 {
-    // Rotate model
-    _scene->findNode("box")->rotateY(MATH_DEG_TO_RAD((float)elapsedTime / 1000.0f * 180.0f));
+
 }
 
 void ThirteenGame::render(float elapsedTime)
 {
     // Clear the color and depth buffers
     clear(CLEAR_COLOR_DEPTH, Vector4::zero(), 1.0f, 0);
-
-    // Visit all the nodes in the scene for drawing
-    _scene->visit(this, &ThirteenGame::drawScene);
     
-    _mainMenuForm->draw();
-}
-
-bool ThirteenGame::drawScene(Node* node)
-{
-    // If the node visited contains a drawable object, draw it
-    Drawable* drawable = node->getDrawable(); 
-    if (drawable)
-        drawable->draw(_wireframe);
-
-    return true;
+    // Draw your sprites
+    _batch->start();
+    _batch->draw(Rectangle(0, 0, 160, 220),
+                 Rectangle(0, 0, 160, 220), Vector4(1.0,1.0,1.0,1.0));
+    // SpriteBatch::draw() can be called multiple times between start() and finish()
+    _batch->finish();
 }
 
 void ThirteenGame::controlEvent(gameplay::Control *control, gameplay::Control::Listener::EventType evt)
@@ -92,7 +70,6 @@ void ThirteenGame::touchEvent(Touch::TouchEvent evt, int x, int y, unsigned int 
     switch (evt)
     {
     case Touch::TOUCH_PRESS:
-        _wireframe = !_wireframe;
         break;
     case Touch::TOUCH_RELEASE:
         break;

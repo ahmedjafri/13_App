@@ -56,14 +56,7 @@ protected:
 
 private:
 
-    /**
-     * Draws the scene each frame.
-     */
-    bool drawScene(Node* node);
-
-    Form* _mainMenuForm;
-    Scene* _scene;
-    bool _wireframe;
+    SpriteBatch* _batch;
 };
 
 #endif
