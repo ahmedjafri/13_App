@@ -1,0 +1,27 @@
+form menu
+{
+    width = 400
+    autoHeight = true
+    alignment = ALIGN_HCENTER
+    style = Empty
+
+    label title
+    {
+        text = Thirteen the Game
+        fontSize = 44
+        alignment = ALIGN_TOP_HCENTER
+    }
+
+    container
+    {
+        layout = LAYOUT_VERTICAL
+        alignment = ALIGN_BOTTOM_HCENTER
+        button playGameButton
+        {
+            width = 300
+            bottom = 50
+            text = Play Game
+            alignment = ALIGN_HCENTER
+        }
+    }
+}
