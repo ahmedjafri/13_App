@@ -48,12 +48,10 @@ bool ThirteenPlay::init()
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 
-    /////////////////////////////
-    // 3. add your codes below...
-
-    // add a label shows "Hello World"
-    // create and initialize a label
+    auto card = Sprite::create("cards.png");
+    this->addChild(card, 1);
     
+    // create and initialize a label
     auto label = Label::createWithTTF("ThirteenPlay", "fonts/Marker Felt.ttf", 24);
     
     // position the label on the center of the screen
