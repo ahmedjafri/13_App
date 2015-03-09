@@ -3,6 +3,8 @@
 
 #include "cocos2d.h"
 
+using namespace cocos2d;
+
 class ThirteenPlay : public cocos2d::Layer
 {
 public:
@@ -17,6 +19,27 @@ public:
     
     // implement the "static create()" method manually
     CREATE_FUNC(ThirteenPlay);
+    
+    /// Returns the Cocos2d position of the touch
+    Point touchToPoint(Touch* touch);
+    
+    /// Returns true if the touch is within the boundary of our sprite
+    bool isTouchingSprite(Touch* touch);
+    
+    // we are multi-touch enabled, so we must use the ccTouches functions
+    // vs the ccTouch functions
+    void onTouchesBegan(const std::vector<Touch*>& touches, Event* event);
+    void onTouchesMoved(const std::vector<Touch*>& touches, Event* event);
+    void onTouchesEnded(const std::vector<Touch*>& touches, Event* event);
+    
+private:
+    Sprite* card;
+    
+    typedef ThirteenPlay self;
+    typedef Layer super;
+    
+    /// The offset of a touch
+    Point touchOffset;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
